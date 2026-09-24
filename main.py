@@ -1,6 +1,8 @@
 # --- TNT MODS - CLOUD SERVER CORE (V5) ---
 # STATUS: CLOUD ENGINE ONLINE | MODO: CENTRAL DE COMANDO 24H
 
+from flask 
+import Flask
 import time
 import datetime
 
@@ -36,3 +38,13 @@ class TNT_Cloud_Server:
 if __name__ == "__main__":
     server = TNT_Cloud_Server()
     server.start()
+    
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "OK"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
+    
