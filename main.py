@@ -1,5 +1,6 @@
 # --- TNT MODS - CLOUD SERVER CORE (V5) ---
 # STATUS: CLOUD ENGINE ONLINE | MODO: CENTRAL DE COMANDO 24H
+import threading
 import os
 from flask import Flask
 import time
@@ -33,17 +34,10 @@ class TNT_Cloud_Server:
             self.log("Status do Sistema: ESTÁVEL", "INFO")
             self.log("Aguardando comandos do Cliente...", "WAIT")
             time.sleep(15)
-
 if __name__ == "__main__":
     server = TNT_Cloud_Server()
-    server.start()
+    threading.Thread(target=server.start, daemon=True).start()
     
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return "OK"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
     
