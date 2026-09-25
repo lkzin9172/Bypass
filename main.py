@@ -34,10 +34,17 @@ class TNT_Cloud_Server:
             self.log("Status do Sistema: ESTÁVEL", "INFO")
             self.log("Aguardando comandos do Cliente...", "WAIT")
             time.sleep(15)
+
+# Instancia a aplicação Flask
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "OK"
+
 if __name__ == "__main__":
     server = TNT_Cloud_Server()
     threading.Thread(target=server.start, daemon=True).start()
     
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-    
